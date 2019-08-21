@@ -82,8 +82,8 @@ anova(cv)
 Long, D. S. "Spatial statistics for analysis of variance of agronomic field trials."
 Practical handbook of spatial statistics. CRC Press, Boca Raton, FL (1996): 251-278.
 
-ROSSONI, D. F.; LIMA, R. R. . Autoregressive analysis of variance for experiments with spatial
-dependence between plots: a simulation study. REVISTA BRASILEIRA DE BIOMETRIA, 2019
+Rossoni, D. F.; Lima, R. R. . Autoregressive analysis of variance for experiments with spatial
+dependence between plots: a simulation study. Revista Brasileira de Biometria, 2019
 
 Scolforo, Henrique Ferraço, et al. "Autoregressive spatial analysis and individual
 tree modeling as strategies for the management of Eremanthus erythropappus." Journal of

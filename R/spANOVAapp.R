@@ -15,7 +15,7 @@
 #' @importFrom DT datatable
 #' @importFrom stats dist
 #' @importFrom ape Moran.I
-#' @import shiny shinyBS xtable shinythemes rmarkdown knitr
+#' @import shiny shinyBS xtable shinythemes rmarkdown knitr shinycssloaders
 #'
 spANOVAapp <- function(external = TRUE) {
   appDir <- system.file("shiny", "spANOVAapp", package = "spANOVA")
