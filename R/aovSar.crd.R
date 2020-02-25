@@ -106,7 +106,7 @@ aovSar.crd <- function(resp, treat, coord, seq.radius) {
     stop("'treat' must be a vector or numeric")
   }
 
-  if(!(is.matrix(coord) | class(coord)=="SpatialPoints")) {
+  if(!(is.matrix(coord) | inherits(coord, "SpatialPoints"))) {
     stop("'coord' must be a matrix or SpatialPoints object")
   }
 

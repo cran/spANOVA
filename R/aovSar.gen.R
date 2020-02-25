@@ -85,7 +85,7 @@
 aovSar.gen <- function(formula, coord, seq.radius, data = NULL) {
 
   # Defensive programming
-  if(!(is.matrix(coord) | class(coord)=="SpatialPoints")) {
+  if(!(is.matrix(coord) | inherits(coord, "SpatialPoints"))) {
     stop("'coord' must be a matrix")
   }
 
@@ -97,7 +97,7 @@ aovSar.gen <- function(formula, coord, seq.radius, data = NULL) {
     stop("'data' must be provided")
   }
 
-  if(class(data) != "data.frame"){
+  if(!inherits(data, "data.frame")){
     stop("'data' must be a data.frame")
   }
 

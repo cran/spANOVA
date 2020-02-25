@@ -1,3 +1,10 @@
+# spANOVA 0.99.2
+
+## Bug-fixes
+
+* Addressing `_R_CLASS_MATRIX_ARRAY_=true`, switch from class to inherits.
+
+
 # spANOVA 0.99.1
 
 ## Bug-fixes
