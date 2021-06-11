@@ -1,3 +1,9 @@
+# spANOVA 0.99.3
+
+## Bug-fixes
+
+* S3 methods `anova`, `print` and `summary` are no longer imported from `spatialreg`
+
 # spANOVA 0.99.2
 
 ## Bug-fixes

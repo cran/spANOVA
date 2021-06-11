@@ -93,7 +93,7 @@
 #' @importFrom gtools stars.pval
 #' @importFrom stats resid
 #' @importFrom spdep nb2listw dnearneigh nb2mat
-#' @importFrom spatialreg lagsarlm summary.sarlm print.sarlm anova.sarlm
+#' @importFrom spatialreg lagsarlm
 #' @export
 aovSar.crd <- function(resp, treat, coord, seq.radius) {
 
