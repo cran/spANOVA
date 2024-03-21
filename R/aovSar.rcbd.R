@@ -239,16 +239,16 @@ summary.SARrcbd <- function(object, ...) {
 # Anova method for this class
 #' @export
 #' @method anova SARrcbd
-anova.SARrcbd <- function(object, compare = FALSE, ...) {
+anova.SARrcbd <- function(object, compare = FALSE, verbose = TRUE, ...) {
 
   if(is.logical(compare) == FALSE){
     warning("'compare' must be logical. Assuming compare == FALSE")
     compare = FALSE
   }
-
+  if(verbose){
   cat("Analysis of Variance With Spatially Correlated Errors","\n")
   cat("\n")
-  cat("Response:", ifelse(length(object$namey)>1,"resp",object$namey), "\n")
+  cat("Response:", ifelse(length(object$namey)>1,"resp",object$namey), "\n")}
   star <- stars.pval(object$p.value[1])
   star2 <- stars.pval(object$p.value[2])
   anova.p1 <- data.frame("DF" = round(object$DF[1:4],0),
@@ -260,17 +260,20 @@ anova.SARrcbd <- function(object, compare = FALSE, ...) {
   )
   colnames(anova.p1) <- c("Df", "Sum Sq", "Mean Sq", "F value", "Pr(>F)", "")
   rownames(anova.p1) <- c("Treatment", "Block", "Residuals", "Corrected Total")
+  if(verbose){
   print(anova.p1)
   cat("---","\n")
-  cat("Signif. codes: ",attr(star, "legend"), "\n")
+  cat("Signif. codes: ",attr(star, "legend"), "\n")}
 
   if(compare){
+    if(verbose){
     cat("\n", "\n")
     cat("---------------------------------------------------------------","\n")
     cat("Standard Analysis of Variance", "\n")
     cat("---------------------------------------------------------------")
     cat("\n")
     print(object$modelstd)
+    }
   }
 
   return(invisible(anova.p1))

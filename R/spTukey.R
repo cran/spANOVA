@@ -6,11 +6,12 @@
 #' statistic when the errors are spatially correlated.
 #'
 #' @usage
-#' spTukey(x, sig.level = 0.05)
+#' spTukey(x, sig.level = 0.05, verbose = TRUE)
 #'
 #' @param x A fitted model object of class SARcrd, SARrcbd or GEOanova.
 #' @param sig.level A numeric value between zero and one giving the significance
 #' level to use.
+#' @param verbose should messages be printed during loading?
 #'
 #' @details
 #' For objects of class SARcrd or SARrcbd this function performs the standard
@@ -71,7 +72,7 @@
 #'
 #'
 #' @export
-spTukey <- function(x, sig.level = 0.05) {
+spTukey <- function(x, sig.level = 0.05, verbose = TRUE) {
   UseMethod("spTukey", x)
 }
 
@@ -81,7 +82,7 @@ spTukey <- function(x, sig.level = 0.05) {
 #' @rdname spTukey
 #' @method spTukey SARanova
 
-spTukey.SARanova<- function(x, sig.level = 0.05){
+spTukey.SARanova<- function(x, sig.level = 0.05, verbose = TRUE){
   exp_tukey <- TukeyHSD(x$modelAdj, conf.level = 1 - sig.level)
   let <- multcompLetters3(2, 1, exp_tukey$treat[,"p adj"], x$modelAdj$model)
   mbg <- tapply(x$modelAdj$model[,1], x$modelAdj$model[,2], mean)
@@ -89,10 +90,11 @@ spTukey.SARanova<- function(x, sig.level = 0.05){
   result <- data.frame(mean = round(mgb.orig[order(mbg, decreasing = TRUE)],3),
                        filtered.mean = round(mbg[order(mbg,decreasing = TRUE)],3) ,
                        groups = let$Letters)
+  if(verbose){
   cat("Tukey's Test","\n")
   cat("\n")
   cat("Treatments with the same letter are not significantly different at a", sig.level * 100,"%" ,"significance level.", "\n")
-  cat("\n")
+  cat("\n")}
   return(result)
 }
 
@@ -119,7 +121,7 @@ spTukey.SARanova<- function(x, sig.level = 0.05){
 #' @rdname spTukey
 #' @method spTukey GEOanova
 
-spTukey.GEOanova <- function(x, sig.level = 0.05){
+spTukey.GEOanova <- function(x, sig.level = 0.05, verbose = TRUE){
 
   # variaveis
   dados <- x$data
@@ -247,11 +249,12 @@ spTukey.GEOanova <- function(x, sig.level = 0.05){
  # print.tuk
 
   #print.tuk
+  if(verbose){
   cat("Tukey's Test","\n")
   cat("\n")
   cat("Treatments with the same letter are not significantly different at a", sig.level * 100,"%" ,"significance level.", "\n")
   cat("\n")
-  print(print.tuk)
+  print(print.tuk)}
   return(invisible(print.tuk))
 }
 

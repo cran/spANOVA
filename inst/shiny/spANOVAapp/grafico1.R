@@ -2,6 +2,8 @@
 #que e o grafico dos dados em funcao das coordenadas na area experimental
 
 chart1<-function(dados,resp,trat,coordX,coordY){
+  oldpar <- par(no.readonly = TRUE) # code line i
+  on.exit(par(oldpar)) # code line i + 1
   coords<-cbind(dados[,coordX],dados[,coordY])
   geodados <- as.geodata(data.frame(coords,dados[,resp]),coords.col = 1:2,data.col = 3)
   #plot(geodados)
@@ -27,6 +29,8 @@ chart1<-function(dados,resp,trat,coordX,coordY){
 }
 
 chart2<-function(dados,resp,trat,coordX,coordY){
+  oldpar <- par(no.readonly = TRUE) # code line i
+  on.exit(par(oldpar)) # code line i + 1
   coords<-cbind(dados[,coordX],dados[,coordY])
   coords.lims <- set.coords.lims(coords = coords)
   data<-dados[,resp]
@@ -35,6 +39,8 @@ chart2<-function(dados,resp,trat,coordX,coordY){
 }
 
 chart3<-function(dados,resp,trat,coordX,coordY){
+  oldpar <- par(no.readonly = TRUE) # code line i
+  on.exit(par(oldpar)) # code line i + 1
   coords<-cbind(dados[,coordX],dados[,coordY])
   coords.lims <- set.coords.lims(coords = coords)
   data<-dados[,resp]

@@ -6,17 +6,19 @@
 \alias{spMVT.GEOanova}
 \title{Multiple comparison test based on multivariate t student distribution}
 \usage{
-spMVT(x, sig.level = 0.05)
+spMVT(x, sig.level = 0.05, verbose = TRUE)
 
-\method{spMVT}{SARanova}(x, sig.level = 0.05)
+\method{spMVT}{SARanova}(x, sig.level = 0.05, verbose = TRUE)
 
-\method{spMVT}{GEOanova}(x, sig.level = 0.05)
+\method{spMVT}{GEOanova}(x, sig.level = 0.05, verbose = TRUE)
 }
 \arguments{
 \item{x}{a fitted model object of class SARcrd, SARrcbd or GEOanova.}
 
 \item{sig.level}{a numeric value between zero and one giving the
 significance level to use.}
+
+\item{verbose}{should messages be printed during loading?}
 }
 \value{
 a data frame containing the original mean, the spatially filtered mean and its group.

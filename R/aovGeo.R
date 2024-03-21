@@ -450,7 +450,7 @@ summary.GEOcrd <- function(object, ...){
 
 #' @export
 #' @method anova GEOcrd
-anova.GEOcrd <- function(object, compare = FALSE, ...) {
+anova.GEOcrd <- function(object, compare = FALSE, verbose = TRUE, ...) {
 
   if(is.logical(compare) == FALSE){
     warning("'compare' must be logical. Assuming compare == FALSE")
@@ -458,9 +458,9 @@ anova.GEOcrd <- function(object, compare = FALSE, ...) {
   }
 
   if(object$type == "trend"){
-
+    if(verbose){
     cat("Analysis of Variance With Spatially Correlated Errors","\n")
-    cat("\n")
+    cat("\n")}
     star1 <- stars.pval(object$p.value[1])
     star2 <- stars.pval(object$p.value[2])
     anova.p1 <- data.frame("DF" = round(object$DF[1:4],0),
@@ -472,25 +472,27 @@ anova.GEOcrd <- function(object, compare = FALSE, ...) {
     )
     colnames(anova.p1) <- c("Df", "Sum Sq", "Mean Sq", "F value", "Pr(>F)", "")
     rownames(anova.p1) <- c("Coordinates", "Treatment", "Residuals", "Total")
+    if(verbose){
     print(anova.p1)
     cat("---", "\n")
-    cat("Signif. codes: ", attr(star1, "legend"), "\n")
+    cat("Signif. codes: ", attr(star1, "legend"), "\n")}
 
     if(compare == TRUE){
+      if(verbose){
       cat("\n", "\n")
       cat("---------------------------------------------------------------","\n")
       cat("Standard Analysis of Variance", "\n")
       cat("---------------------------------------------------------------")
-      cat("\n")
+      cat("\n")}
       Treatment <- factor(object$data$covariate[ ,1])
       Resp <- object$data$data
-      print(anova(aov(Resp ~ Treatment)))
+      if(verbose) print(anova(aov(Resp ~ Treatment)))
     }
 
   } else {
-
+    if(verbose){
     cat("Analysis of Variance With Spatially Correlated Errors","\n")
-    cat("\n")
+    cat("\n")}
     star <- stars.pval(object$p.value)
     anova.p1 <- data.frame("DF" = round(object$DF[1:3],0),
                            "SS" = round(object$SS[1:3],4),
@@ -502,18 +504,20 @@ anova.GEOcrd <- function(object, compare = FALSE, ...) {
     colnames(anova.p1) <- c("Df", "Sum Sq", "Mean Sq", "F value" ,"Pr(>F)", "")
     rownames(anova.p1) <- c("Treatment", "Residuals", "Total")
     print(anova.p1)
+    if(verbose){
     cat("---", "\n")
-    cat("Signif. codes: ", attr(star, "legend"),"\n")
+    cat("Signif. codes: ", attr(star, "legend"),"\n")}
 
     if(compare == TRUE){
+      if(verbose){
       cat("\n", "\n")
       cat("---------------------------------------------------------------","\n")
       cat("Standard Analysis of Variance", "\n")
       cat("---------------------------------------------------------------")
-      cat("\n")
+      cat("\n")}
       Treatment <- factor(object$data$covariate[ ,1])
       Resp <- object$data$data
-      print(anova(aov(Resp ~ Treatment)))
+      if(verbose) print(anova(aov(Resp ~ Treatment)))
     }
 
   }
@@ -727,15 +731,15 @@ summary.GEOrcbd<- function(object, ...){
 
 #' @export
 #' @method anova GEOrcbd
-anova.GEOrcbd <- function(object, compare = FALSE, ...) {
+anova.GEOrcbd <- function(object, compare = FALSE, verbose = TRUE, ...) {
 
   if(is.logical(compare) == FALSE){
     warning("'compare' must be logical. Assuming compare == FALSE")
     compare = FALSE
   }
-
+  if(verbose){ 
   cat("Analysis of Variance With Spatially Correlated Errors","\n")
-  cat("\n")
+  cat("\n")}
   star1 <- stars.pval(object$p.value[1])
   star2 <- stars.pval(object$p.value[2])
   anova.p1 <- data.frame("DF" = round(object$DF[1:4],0),
@@ -747,20 +751,22 @@ anova.GEOrcbd <- function(object, compare = FALSE, ...) {
   )
   colnames(anova.p1) <- c("Df", "Sum Sq", "Mean Sq", "F value" ,"Pr(>F)", "")
   rownames(anova.p1) <- c("Treatment","Block","Residuals","Total")
+  if(verbose){
   print(anova.p1)
   cat("---","\n")
-  cat("Signif. codes: ",attr(star1, "legend"), "\n")
+  cat("Signif. codes: ",attr(star1, "legend"), "\n")}
 
   if(compare == TRUE){
+    if(verbose){
     cat("\n", "\n")
     cat("---------------------------------------------------------------","\n")
     cat("Standard Analysis of Variance", "\n")
     cat("---------------------------------------------------------------")
-    cat("\n")
+    cat("\n")}
     Treatment <- as.factor(object$data$covariate[ ,1])
     Block <- as.factor(object$data$covariate[ ,2])
     Resp <- object$data$data
-    print(anova(aov(Resp ~ Treatment + Block)))
+    if(verbose) print(anova(aov(Resp ~ Treatment + Block)))
   }
 
   return(invisible(anova.p1))

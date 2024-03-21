@@ -5,11 +5,12 @@
 #' @description
 #' Use a multivariate t student distribution to assess the equality of means.
 #'
-#' @usage spMVT(x, sig.level = 0.05)
+#' @usage spMVT(x, sig.level = 0.05, verbose = TRUE)
 #'
 #' @param x a fitted model object of class SARcrd, SARrcbd or GEOanova.
 #' @param sig.level a numeric value between zero and one giving the
 #' significance level to use.
+#' @param verbose should messages be printed during loading?
 #'
 #' @details
 #' For objects of class SARcrd or SARrcbd this function performs the general
@@ -61,7 +62,7 @@
 #' Agropecuária) | Universidade Federal de Lavras, Lavras, 2017
 #'
 #' @export
-spMVT <- function(x, sig.level = 0.05){
+spMVT <- function(x, sig.level = 0.05, verbose = TRUE){
   UseMethod("spMVT", x)
 }
 
@@ -70,7 +71,7 @@ spMVT <- function(x, sig.level = 0.05){
 #' @method spMVT SARanova
 #' @rdname spMVT
 
-spMVT.SARanova <-function(x, sig.level = 0.05) {
+spMVT.SARanova <-function(x, sig.level = 0.05, verbose = TRUE) {
   comp <-glht(x$modelAdj, linfct = mcp(treat = "Tukey"))
   let <- cld(comp, decreasing = TRUE, level = sig.level)
   mbg <- tapply(x$modelAdj$model[,1], x$modelAdj$model[,2], mean)
@@ -79,10 +80,11 @@ spMVT.SARanova <-function(x, sig.level = 0.05) {
                        filtered.mean = round(mbg[order(mbg, decreasing = TRUE)],3) ,
                        groups = let$mcletters$Letters[order(mbg,decreasing = TRUE)])
   #row.names = x$modelAdj$model[,2][order(mbg,decreasing = TRUE)]
+  if(verbose){
   cat("Test based on multivariate t-student distribution","\n")
   cat("\n")
   cat("Treatments with the same letter are not significantly different at a", sig.level * 100,"%" ,"significance level.", "\n")
-  cat("\n")
+  cat("\n")}
   return(result)
 }
 
@@ -92,7 +94,7 @@ spMVT.SARanova <-function(x, sig.level = 0.05) {
 #' @rdname spMVT
 #' @method spMVT GEOanova
 
-spMVT.GEOanova <- function(x, sig.level = 0.05){
+spMVT.GEOanova <- function(x, sig.level = 0.05, verbose = TRUE){
   # variaveis
   dados <- x$data
   resp <- dados$data
@@ -194,12 +196,12 @@ spMVT.GEOanova <- function(x, sig.level = 0.05){
                           groups = unname(letras),
                           row.names =  unique(trat)[order(media,decreasing = TRUE)])
 
-
+  if(verbose){
   cat("Test based on multivariate t-student distribution","\n")
   cat("\n")
   cat("Treatments with the same letter are not significantly different at a", sig.level * 100,"%" ,"significance level.", "\n")
   cat("\n")
-  print(print.tuk)
+  print(print.tuk)}
   return(invisible(print.tuk))
 }
 

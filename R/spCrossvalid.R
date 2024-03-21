@@ -9,6 +9,14 @@
 #' @param x an object of class \code{\link[spANOVA]{spVariofit}}.
 #' @param ... further arguments to be passed to \code{\link[geoR]{xvalid}} function.
 #'
+#' @return An object of the class "xvalid" which is a list with the following components:
+#' \item{data}{the original data.}
+#' \item{predicted}{the values predicted by cross-validation.}
+#' \item{krige.var}{the cross-validation prediction variance.}
+#' \item{error}{the differences data - predicted value.}
+#' \item{std.error}{the errors divided by the square root of the prediction variances.}
+#' \item{prob}{the cumulative probability at original value under a normal distribution with parameters given by the cross-validation results.}
+#' 
 #' @details This function is a wrapper to \code{\link[geoR]{xvalid}} function of the package geoR.
 #' Please check its documentation for additional information.
 #'

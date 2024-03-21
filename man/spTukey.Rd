@@ -6,17 +6,19 @@
 \alias{spTukey.GEOanova}
 \title{Compute Tukey Honest Significant Differences for a Spatially Correlated Model}
 \usage{
-spTukey(x, sig.level = 0.05)
+spTukey(x, sig.level = 0.05, verbose = TRUE)
 
-\method{spTukey}{SARanova}(x, sig.level = 0.05)
+\method{spTukey}{SARanova}(x, sig.level = 0.05, verbose = TRUE)
 
-\method{spTukey}{GEOanova}(x, sig.level = 0.05)
+\method{spTukey}{GEOanova}(x, sig.level = 0.05, verbose = TRUE)
 }
 \arguments{
 \item{x}{A fitted model object of class SARcrd, SARrcbd or GEOanova.}
 
 \item{sig.level}{A numeric value between zero and one giving the significance
 level to use.}
+
+\item{verbose}{should messages be printed during loading?}
 }
 \value{
 a data frame containing the original mean, the spatially filtered mean and its group.

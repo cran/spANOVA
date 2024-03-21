@@ -10,6 +10,10 @@ spANOVAapp(external = TRUE)
 \item{external}{logical. If true, the system's default web browser will be
 launched automatically after the app is started.}
 }
+\value{
+This function does not return any value directly. It launches a Shiny
+application for analyzing variance with spatially correlated errors.
+}
 \description{
 Shiny app for analysis of variance with spatially correlated errors
 }

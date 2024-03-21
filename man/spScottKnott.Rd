@@ -6,17 +6,19 @@
 \alias{spScottKnott.GEOanova}
 \title{The Scott-Knott Clustering Algorithm}
 \usage{
-spScottKnott(x, sig.level = 0.05)
+spScottKnott(x, sig.level = 0.05, verbose = TRUE)
 
-\method{spScottKnott}{SARanova}(x, sig.level = 0.05)
+\method{spScottKnott}{SARanova}(x, sig.level = 0.05, verbose = TRUE)
 
-\method{spScottKnott}{GEOanova}(x, sig.level = 0.05)
+\method{spScottKnott}{GEOanova}(x, sig.level = 0.05, verbose = TRUE)
 }
 \arguments{
 \item{x}{a fitted model object of class SARcrd, SARrcbd or GEOanova.}
 
 \item{sig.level}{a numeric value between zero and one giving the significance
 level to use.}
+
+\item{verbose}{should messages be printed during loading?}
 }
 \value{
 a data frame containing the means and its group

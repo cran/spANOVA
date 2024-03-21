@@ -217,7 +217,7 @@ summary.SARaov <- function(object, ...) {
 # Anova method for this class
 #' @export
 #' @method anova SARaov
-anova.SARaov <- function(object, type = c("II","III", 2, 3), compare = FALSE, ...) {
+anova.SARaov <- function(object, type = c("II","III", 2, 3), compare = FALSE, verbose = TRUE, ...) {
   type <- as.character(type)
   type <- match.arg(type)
 
@@ -229,19 +229,20 @@ anova.SARaov <- function(object, type = c("II","III", 2, 3), compare = FALSE, ..
     warning("'compare' must be logical. Assuming compare == FALSE")
     compare = FALSE
   }
-
+  if(verbose){
   cat("Analysis of Variance With Spatially Correlated Errors","\n")
   cat("\n")
-  print(Anova(object$modelAdj, type = type))
+  print(Anova(object$modelAdj, type = type))}
 
 
   if(compare){
+    if(verbose){
     cat("\n", "\n")
     cat("---------------------------------------------------------------","\n")
     cat("Standard Analysis of Variance", "\n")
     cat("---------------------------------------------------------------")
     cat("\n")
-    print(object$modelstd)
+    print(object$modelstd)}
   }
 
   return(invisible(Anova(object$modelAdj, type = type)))

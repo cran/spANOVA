@@ -5,11 +5,12 @@
 #' This function implements the Scott-Knott Clustering
 #' Algorithm for objects of class SARcrd, SARrcbd, and GEOanova.
 #'
-#' @usage spScottKnott(x, sig.level = 0.05)
+#' @usage spScottKnott(x, sig.level = 0.05, verbose = TRUE)
 #'
 #' @param x a fitted model object of class SARcrd, SARrcbd or GEOanova.
 #' @param sig.level a numeric value between zero and one giving the significance
 #' level to use.
+#' @param verbose should messages be printed during loading?
 #'
 #' @details
 #' For objects of class SARcrd or SARrcbd this function performs the standard Scott-Knott
@@ -56,7 +57,7 @@
 #' Agropecuária) | Universidade Federal de Lavras, Lavras, 2017
 #'
 #' @export
-spScottKnott <- function(x, sig.level = 0.05) {
+spScottKnott <- function(x, sig.level = 0.05, verbose = TRUE) {
   UseMethod("spScottKnott", x)
 }
 
@@ -65,7 +66,7 @@ spScottKnott <- function(x, sig.level = 0.05) {
 #' @rdname spScottKnott
 #' @method spScottKnott SARanova
 
-spScottKnott.SARanova <- function(x, sig.level = 0.05) {
+spScottKnott.SARanova <- function(x, sig.level = 0.05, verbose = TRUE) {
   invisible(capture.output(out <- summary(SK(x = x$modelAdj,
                                              which = 'treat',
                                              dispersion = 's',
@@ -73,10 +74,11 @@ spScottKnott.SARanova <- function(x, sig.level = 0.05) {
   mgb.orig <- round(tapply(x$y_orig, x$modelAdj$model[,2], mean),3)
   out <- cbind(sort(mgb.orig, decreasing = T), out[,-1])
   colnames(out) <- c("mean","filtered.mean", "groups")
+  if(verbose){
   cat("Scott-Knott Test","\n")
   cat("\n")
   cat("Treatments with the same letter are not significantly different at a", sig.level * 100,"%" ,"significance level.", "\n")
-  cat("\n")
+  cat("\n")}
   return(out)
 }
 
@@ -84,7 +86,7 @@ spScottKnott.SARanova <- function(x, sig.level = 0.05) {
 #' @rdname spScottKnott
 #' @method spScottKnott GEOanova
 
-spScottKnott.GEOanova <- function(x, sig.level = 0.05){
+spScottKnott.GEOanova <- function(x, sig.level = 0.05, verbose = TRUE){
   # variaveis
   dados <- x$data
   resp <- dados$data
@@ -248,11 +250,12 @@ spScottKnott.GEOanova <- function(x, sig.level = 0.05){
                       filtered.mean = unname(round(ordertest[, 2],3)),
                       groups = M,
                       row.names = ordertest[, 1])
+  if(verbose){
   cat("Scott-Knott Test","\n")
   cat("\n")
   cat("Treatments with the same letter are not significantly different at a", sig.level * 100,"%" ,"significance level.", "\n")
   cat("\n")
-  print(saida)
+  print(saida)}
   return(invisible(saida))
 }
 
